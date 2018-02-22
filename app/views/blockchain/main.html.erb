@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <th>Own Hash</th>
+    <th>Previous Block Hash</th>
+    <th>Transaction</th>
+  </thead>
+  <% @blockchain.blocks.each do |b| %>
+    <tr>
+      <td><%= b.own_hash %></td>
+      <td><%= b.genesis_block? ? "GENESIS" : b.prev_block_hash %></td>
+      <td><%= "Amount: #{b.transaction.amount}, From #{b.transaction.genesis_transaction? ? "GENESIS" : b.transaction.from}, To: #{b.transaction.to}" %></td>
+    </tr>
+  <% end %>
+</table>
