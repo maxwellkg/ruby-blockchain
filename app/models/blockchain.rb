@@ -1,5 +1,5 @@
 class Blockchain
-  include ActiveModel::Validations
+  include ActiveModel::Model
 
   validate :blocks_are_blocks?, :blocks_are_valid?, :blocks_are_linked?, :all_spends_valid?
 
@@ -42,6 +42,9 @@ class Blockchain
     raise "Block is not valid!" unless block.valid?
 
     @blocks << block
+    TransactionPool.instance.remove_completed_transactions!
+
+    self
   end
 
   def length
@@ -59,6 +62,10 @@ class Blockchain
 
   def find(hash)
     @blocks.detect { |b| b.own_hash == hash }
+  end
+
+  def transactions
+    @blocks.collect { |b| b.transactions }.flatten
   end
 
   private

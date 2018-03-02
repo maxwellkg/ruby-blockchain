@@ -60,20 +60,12 @@ class Block
     end
 
     def nonce_must_be_valid
-      unless is_valid_nonce?(@nonce)
-        errors.add(:nonce, 'Nonce must be set so that the hash of the block begins with #{NUM_ZEROES} zeroes')
-      end
+      errors.add(:nonce, 'Nonce must be set so that the hash of the block begins with #{NUM_ZEROES} zeroes') unless is_valid_nonce?(@nonce)
     end
 
     def transactions_must_be_valid
       errors.add(:transaction_type, 'Not all transactions are of type Transaction') unless @transactions.all? { |t| t.is_a?(Transaction) }
-      
-      @transactions.each do |t|
-        unless t.valid?
-          errors.add(:valid_transaction, 'Not all transactions are valid')
-          break
-        end
-      end
+      errors.add(:valid_transaction, 'Not all transactions are valid') unless @transactions.all?(&:valid?)
     end
 
 end

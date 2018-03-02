@@ -14,8 +14,11 @@ class Transaction
   def genesis_transaction?
     # the genesis transaction will be the only transaction included in the first block
     # on the chain
-
     self == Blockchain.instance.blocks.first.transactions.first
+  end
+
+  def add_to_pool
+    TransactionPool.instance.add_transaction!(self)
   end
 
   def message
@@ -26,10 +29,6 @@ class Transaction
     Blockchain.instance.blocks.select do |b|
       conditions.each { |att, val| b.transaction.send(att) == val }.all?
     end
-  end
-
-  def self.all
-    Blockchain.instance.blocks.map(&:transaction)
   end
 
   private
