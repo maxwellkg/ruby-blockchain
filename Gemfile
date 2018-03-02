@@ -9,6 +9,8 @@ gem 'awesome_print'
 gem 'whenever'
 gem 'faraday'
 
+gem 'ffi'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
 # Use Puma as the app server
