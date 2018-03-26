@@ -3328,3 +3328,32 @@ Processing by BlockchainController#gossip as */*
 Completed 200 OK in 2ms (Views: 0.4ms)
 
 
+Started GET "/" for 127.0.0.1 at 2018-03-02 15:05:41 -0500
+Processing by BlockchainController#main as HTML
+  Rendering blockchain/main.html.erb within layouts/application
+  Rendered blockchain/main.html.erb within layouts/application (7.3ms)
+Completed 500 Internal Server Error in 612ms
+
+
+  
+ActionView::Template::Error (undefined method `transaction' for #<Block:0x007febbe688808>
+Did you mean?  transactions):
+     8:     <tr>
+     9:       <td><%= b.own_hash %></td>
+    10:       <td><%= b.genesis_block? ? "GENESIS" : b.prev_block_hash %></td>
+    11:       <td><%= "Amount: #{b.transaction.amount}, From #{b.transaction.genesis_transaction? ? "GENESIS" : b.transaction.from}, To: #{b.transaction.to}" %></td>
+    12:     </tr>
+    13:   <% end %>
+    14: </table>
+  
+app/views/blockchain/main.html.erb:11:in `block in _app_views_blockchain_main_html_erb___3434842583222894014_70325268270160'
+app/views/blockchain/main.html.erb:7:in `each'
+app/views/blockchain/main.html.erb:7:in `_app_views_blockchain_main_html_erb___3434842583222894014_70325268270160'
+  Rendering /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout
+  Rendering /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (3.4ms)
+  Rendering /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.5ms)
+  Rendering /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/maxwellgove/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.6/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (74.1ms)

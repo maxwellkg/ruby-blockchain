@@ -9,9 +9,11 @@ class BlockchainController < ApplicationController
   def gossip
     their_blockchain = YAML.load(params['blockchain'])
     their_peers = YAML.load(params['peers'])
+    their_pool = YAML.load(params['transaction_pool'])
 
     Blockchain.instance.update!(their_blockchain)
     Client.instance.update_peers!(their_peers)
+    TransactionPool.instance.update_pool!(their_pool)
 
     render plain: YAML.dump('peers' => Client.instance.peers, 'blockchain' => Blockchain.instance)
   end
