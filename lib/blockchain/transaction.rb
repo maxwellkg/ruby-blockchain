@@ -1,4 +1,4 @@
-module
+module Blockchain
   class Transaction
     include ActiveModel::Model
 

@@ -24,7 +24,7 @@ module Blockchain
     end
 
     def genesis_block?
-      @prev_block_hash.nil?
+      @prev_block_hash == '0' * 64
     end
 
     def mine!
@@ -47,13 +47,12 @@ module Blockchain
       nonce
     end
 
-    # can this be moved under private?
-    def is_valid_nonce?(nonce)
-      hash(full_block(nonce)).start_with?('0' * NUM_ZEROES)
-    end
-
     def previous
       Blockchain.instance.find(prev_block_hash)
+    end
+
+    def next
+      Blockchain.instance.where(prev_block_hash: own_hash).first
     end
 
     private
@@ -70,6 +69,11 @@ module Blockchain
         errors.add(:transaction_type, 'Not all transactions are of type Transaction') unless @transactions.all? { |t| t.is_a?(Transaction) }
         errors.add(:valid_transaction, 'Not all transactions are valid') unless @transactions.all?(&:valid?)
       end
+
+      def is_valid_nonce?(nonce)
+        hash(full_block(nonce)).start_with?('0' * NUM_ZEROES)
+      end
+
 
   end
 end

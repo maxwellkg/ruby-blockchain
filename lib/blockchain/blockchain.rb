@@ -76,6 +76,14 @@ module Blockchain
       @blocks.detect { |b| b.own_hash == hash }
     end
 
+    def where(conditions_hash)
+      @blocks.select do |b|
+        conditions_hash.all? do |k, v|
+          b.send(k) == v
+        end
+      end
+    end
+
     def transactions
       @blocks.collect { |b| b.transactions }.flatten
     end

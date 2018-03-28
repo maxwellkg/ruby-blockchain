@@ -1,4 +1,4 @@
-module
+module Blockchain
   class TransactionPool
 
     BLOCKS_TO_CONFIRMATION = 10.freeze
@@ -28,7 +28,7 @@ module
 
       mark_unconfirmed_transactions!
       mark_confirmed_transactions!
-      remove_confirmed_transactions!
+      remove_completed_transactions!
     end
 
     private
